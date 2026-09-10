@@ -95,7 +95,8 @@ async def admin_unblock(message: Message):
         with sqlite3.connect(DB_PATH) as conn:
             conn.execute("DELETE FROM blocked_users WHERE user_id = ?", (uid,))
         await message.answer(f"✅ Пользователь {uid} разблокирован.")
-
+    except:
+        await message.answer("Пример: /unblock 12345678")
 @dp.message(Command("blocked"), F.from_user.id == ADMIN_ID)
 async def admin_blocked_list(message: Message):
     with sqlite3.connect(DB_PATH) as conn:
@@ -170,5 +171,5 @@ async def main():
     keep_alive()
     await dp.start_polling(bot)
 
-if name == "__main__":
+if __name__ == "__main__":
     asyncio.run(main())
