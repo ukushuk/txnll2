@@ -93,11 +93,8 @@ async def admin_unblock(message: Message):
     try:
         uid = int(message.text.split()[1])
         with sqlite3.connect(DB_PATH) as conn:
-            conn.
-[08.08.2026 23:22] ゛: execute("DELETE FROM blocked_users WHERE user_id = ?", (uid,))
+            conn.execute("DELETE FROM blocked_users WHERE user_id = ?", (uid,))
         await message.answer(f"✅ Пользователь {uid} разблокирован.")
-    except:
-        await message.answer("Пример: /unblock 12345678")
 
 @dp.message(Command("blocked"), F.from_user.id == ADMIN_ID)
 async def admin_blocked_list(message: Message):
